@@ -1,0 +1,106 @@
+openapi: 3.0.2
+info:
+  title: Key Value Pair API
+  description: Sample key-value store api with crud operations
+  version: '1.0.0'
+servers:
+  - url: http://localhost:3000/
+paths:
+  /kvs:
+    post:
+      tags:
+        - Set
+      summary: add key-value pair to the store
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                k:
+                  type: string
+                v:
+                  type: string
+                ttl:
+                  type: integer
+                  minimum: 0
+      responses:
+        "200":
+          description: OK
+  /kvs:
+    get:
+      tags:
+        - Get one
+      summary: Retrieve value for a particular key
+      parameters:
+        - name: key
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /kvs:
+    get:
+      tags:
+        - Get All
+      summary: Retrieve all the key-value pairs present
+      responses:
+        "200":
+          description: OK
+  /kvs/ttl:
+    post:
+      tags:
+        - Set TTL
+      summary: Set expiry time (in seconds) of keys
+      requestBody:
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                ttl:
+                  type: integer
+      responses:
+        "200":
+          description: OK
+  /signup:
+    post:
+      tags:
+        - Sign Up
+      summary: Creates a user
+      requestBody:
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+      responses:
+        "200":
+             description: OK
+  /login:
+    get:
+      tags:
+        - Login
+      summary: Authenticates a user credentials
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
